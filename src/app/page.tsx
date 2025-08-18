@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -21,9 +22,25 @@ import Image from "next/image";
 import ProductCard from "@/components/ProductCard";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
+import { useEffect, useState } from "react";
+import { Product } from "@/types/product";
+import { getProducts } from "@/services/productService";
 
 const Index = () => {
-  const featuredProducts = getFeaturedProducts();
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await getProducts();
+
+        setProducts(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const categories = [
     {
@@ -214,7 +231,7 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProducts.map((product) => (
+            {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

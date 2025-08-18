@@ -1,18 +1,32 @@
 // src/lib/http.ts
+type Primitive = string | number | boolean | null | undefined;
+
 type HttpConfig = {
   baseUrl?: string;
   headers?: HeadersInit;
-  searchParams?: Record<string, string | number | boolean | null | undefined>;
+  // ✅ ahora soporta arrays
+  searchParams?: Record<
+    string,
+    Primitive | Array<Exclude<Primitive, null | undefined>>
+  >;
   body?: unknown; // para POST/PUT/PATCH
   unwrapData?: boolean; // si true, retorna json.data
   cache?: RequestCache; // "no-store" | etc.
   signal?: AbortSignal;
+
+  /**
+   * Cómo serializar arrays en query:
+   * - "repeat": ?categoryId=1&categoryId=2  (default)
+   * - "comma":  ?categoryId=1,2
+   */
+  paramArrayStyle?: "repeat" | "comma";
 };
 
 function buildUrl(
   baseUrl: string,
   path: string,
-  qs?: HttpConfig["searchParams"]
+  qs?: HttpConfig["searchParams"],
+  arrayStyle: HttpConfig["paramArrayStyle"] = "repeat"
 ) {
   const url = new URL(
     `${(baseUrl ?? process.env.NEXT_PUBLIC_API_BASE_URL!)!.replace(
@@ -20,11 +34,26 @@ function buildUrl(
       ""
     )}/${path.replace(/^\/+/, "")}`
   );
+
   if (qs) {
     Object.entries(qs).forEach(([k, v]) => {
-      if (v !== undefined && v !== null) url.searchParams.set(k, String(v));
+      if (v === undefined || v === null) return;
+
+      if (Array.isArray(v)) {
+        if (arrayStyle === "comma") {
+          // ?k=1,2,3
+          const joined = v.map((x) => String(x)).join(",");
+          url.searchParams.set(k, joined);
+        } else {
+          // repeat (default): ?k=1&k=2&k=3
+          v.forEach((x) => url.searchParams.append(k, String(x)));
+        }
+      } else {
+        url.searchParams.set(k, String(v));
+      }
     });
   }
+
   return url.toString();
 }
 
@@ -36,7 +65,8 @@ async function doFetch<T>(
   const url = buildUrl(
     cfg.baseUrl ?? process.env.NEXT_PUBLIC_API_BASE_URL!,
     path,
-    cfg.searchParams
+    cfg.searchParams,
+    cfg.paramArrayStyle
   );
 
   const res = await fetch(url, {

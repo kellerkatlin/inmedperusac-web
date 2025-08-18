@@ -11,10 +11,14 @@ export function getProducts(params?: { categoryId?: string }) {
 }
 
 // Solo data (array de Product)
-export function getProductsData(params?: { categoryId?: string }) {
+export function getProductsData(
+  params?: { categoryId?: string | string[] },
+  cfg?: { paramArrayStyle?: "repeat" | "comma" }
+) {
   return httpGet<Product[]>("/product", {
     searchParams: params,
     unwrapData: true,
+    ...(cfg ?? {}),
   });
 }
 

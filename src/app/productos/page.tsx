@@ -25,7 +25,6 @@ import { getCategoriesData } from "@/services/categoryService";
 const Products = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState("name");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [showFilters, setShowFilters] = useState(false);
@@ -38,15 +37,15 @@ const Products = () => {
   const [errorCats, setErrorCats] = useState<string | null>(null);
   const [errorProds, setErrorProds] = useState<string | null>(null);
 
-  // Cargar categorías
+  // 1) Cargar categorías (listado completo)
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
         setLoadingCats(true);
         setErrorCats(null);
-        const cats = await getCategoriesData();
-        if (!cancelled) setCategories(cats);
+        const cats = await getCategoriesData(); // 👈 lista completa
+        if (!cancelled) setCategories(cats ?? []);
       } catch (e: any) {
         if (!cancelled) setErrorCats(e?.message ?? "Error cargando categorías");
       } finally {
@@ -57,20 +56,23 @@ const Products = () => {
       cancelled = true;
     };
   }, []);
-  // 2) Cargar products cuando cambie el "categoryId" principal
-  //    (si hay varias categorías seleccionadas, usamos la PRIMERA para el backend)
-  const primaryCategoryId = selectedCategories[0];
 
+  // 2) Cargar productos cada vez que cambian las categorías seleccionadas
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
         setLoadingProds(true);
         setErrorProds(null);
+
+        // ✅ Si hay seleccionadas, enviamos TODO el array; si no, undefined para traer todo
         const prods = await getProductsData({
-          categoryId: primaryCategoryId || undefined,
+          categoryId: selectedCategories.length
+            ? selectedCategories
+            : undefined,
         });
-        if (!cancelled) setProducts(prods);
+
+        if (!cancelled) setProducts(prods ?? []);
       } catch (e: any) {
         if (!cancelled) setErrorProds(e?.message ?? "Error cargando productos");
       } finally {
@@ -80,13 +82,13 @@ const Products = () => {
     return () => {
       cancelled = true;
     };
-  }, [primaryCategoryId]);
+  }, [selectedCategories]);
 
-  // Filtrado + orden en cliente
+  // Filtrado + orden en cliente (búsqueda + sort)
   const filteredProducts = useMemo(() => {
     let result = [...products];
 
-    // búsqueda por descripción (y opcionalmente por nombre de categoría)
+    // búsqueda por descripción y nombre de categoría
     const q = searchQuery.trim().toLowerCase();
     if (q) {
       result = result.filter(
@@ -96,26 +98,14 @@ const Products = () => {
       );
     }
 
-    // categorías extra (además de la primary que ya fue al backend)
-    if (selectedCategories.length > 1) {
-      result = result.filter((p) =>
-        selectedCategories.includes(p.category.id.toString())
-      );
-    } else if (selectedCategories.length === 1 && !primaryCategoryId) {
-      // por si acaso no hay primary establecido
-      result = result.filter(
-        (p) => p.category.id.toString() === selectedCategories[0]
-      );
-    }
-
     // orden
     result.sort((a, b) => {
       switch (sortBy) {
         case "name":
           return a.description.localeCompare(b.description);
         case "category":
-          return (a.category.description ?? "").localeCompare(
-            b.category.description ?? ""
+          return (a.category?.description ?? "").localeCompare(
+            b.category?.description ?? ""
           );
         case "price":
           return (a.price ?? 0) - (b.price ?? 0);
@@ -125,7 +115,7 @@ const Products = () => {
     });
 
     return result;
-  }, [products, searchQuery, selectedCategories, sortBy]);
+  }, [products, searchQuery, sortBy]);
 
   // Handlers
   const handleCategoryChange = (categoryId: string, checked: boolean) => {
@@ -256,12 +246,10 @@ const Products = () => {
                       <div key={cat.id} className="flex items-center space-x-2">
                         <Checkbox
                           id={`category-${cat.id}`}
-                          checked={selectedCategories.includes(
-                            cat.id.toString()
-                          )}
+                          checked={selectedCategories.includes(String(cat.id))}
                           onCheckedChange={(checked) =>
                             handleCategoryChange(
-                              cat.id.toString(),
+                              String(cat.id),
                               checked as boolean
                             )
                           }
@@ -337,7 +325,7 @@ const Products = () => {
                   <div className="flex flex-wrap gap-2">
                     {selectedCategories.map((catId) => {
                       const name =
-                        categories.find((c) => c.id.toString() === catId)
+                        categories.find((c) => String(c.id) === catId)
                           ?.description ?? catId;
                       return (
                         <Badge

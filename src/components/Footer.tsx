@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -14,8 +15,27 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../public/logo.png";
+import { getCategories, getCategoriesData } from "@/services/categoryService";
+import type { Category } from "@/types/category";
+import { useEffect, useState } from "react";
 
-const Footer = () => {
+export default function Footer() {
+  const [categories, setCategories] = useState<Category[]>([]);
+  // Trae primeras 5 categorías (si tu API soporta paginación, usa size: 5)
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await getCategories();
+
+        setCategories(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchCategories();
+  }, []);
+
   return (
     <footer className="bg-foreground text-white">
       {/* Newsletter section */}
@@ -121,27 +141,29 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Product categories */}
+          {/* Product categories (dinámico: primeras 5) */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Categorías</h4>
             <ul className="space-y-2">
-              {[
-                "Insumos Médicos",
-                "Equipos Diagnósticos",
-                "Protección Personal",
-                "Instrumental Quirúrgico",
-                "Mobiliario Hospitalario",
-                "Rehabilitación",
-              ].map((category) => (
-                <li key={category}>
-                  <Link
-                    href="/productos"
-                    className="text-accent hover:text-primary transition-smooth"
-                  >
-                    {category}
-                  </Link>
-                </li>
-              ))}
+              {categories.length === 0
+                ? // Fallback si no hay datos
+                  ["—"].map((placeholder, i) => (
+                    <li key={i} className="text-accent">
+                      {placeholder}
+                    </li>
+                  ))
+                : categories.map((category) => (
+                    <li key={category.id}>
+                      <Link
+                        href={`/productos?categoryId=${encodeURIComponent(
+                          String(category.id)
+                        )}`}
+                        className="text-accent hover:text-primary transition-smooth"
+                      >
+                        {category.description}
+                      </Link>
+                    </li>
+                  ))}
             </ul>
           </div>
 
@@ -187,7 +209,7 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-accent text-sm">
-              © 2024 MedicoEquip. Todos los derechos reservados.
+              © 2025 Inmed Perú Sac . Todos los derechos reservados.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link
@@ -208,6 +230,4 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

@@ -1,26 +1,31 @@
+// src/services/categoryService.ts
 import { httpGet } from "@/lib/https";
-import { ApiResponse } from "@/types/api-response";
+import type { ApiResponse } from "@/types/api-response";
 import type { Category } from "@/types/category";
 
-// Si quieres el envelope { message, data }
-export function getCategories(params?: {
-  page?: number;
-  size?: number;
-  search?: string;
-}) {
-  return httpGet<ApiResponse<Category[]>>("/category", {
-    searchParams: params,
+/** 1) Listado general (envelope) */
+export function getCategories() {
+  return httpGet<ApiResponse<Category[]>>("/category", {});
+}
+
+/** 1.1) Listado general (solo data) */
+export function getCategoriesData() {
+  return httpGet<Category[]>("/category", {
+    unwrapData: true,
   });
 }
 
-// Si prefieres solo el data (array de Category)
-export function getCategoriesData(params?: {
-  page?: number;
-  size?: number;
-  search?: string;
-}) {
+/** 2) Listar por IDs (envelope) => GET /category?ids=1,2,3 */
+export function getCategoriesByIds(ids: Array<string | number>) {
+  return httpGet<ApiResponse<Category[]>>("/category", {
+    searchParams: { ids: ids.join(",") }, // "1,2,3"
+  });
+}
+
+/** 2.1) Listar por IDs (solo data) */
+export function getCategoriesByIdsData(ids: Array<string | number>) {
   return httpGet<Category[]>("/category", {
-    searchParams: params,
+    searchParams: { ids: ids.join(",") },
     unwrapData: true,
   });
 }
