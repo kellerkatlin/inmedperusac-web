@@ -1,103 +1,351 @@
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Shield,
+  Truck,
+  Award,
+  Clock,
+  Star,
+  ArrowRight,
+  CheckCircle,
+  Users,
+  Heart,
+  Stethoscope,
+} from "lucide-react";
+import heroImage from "../../public/hero-medical.png";
+import medicalSupplies from "../../public/medical-supplies.png";
+import medicalEquipment from "../../public/medical-equipment.png";
+import { getFeaturedProducts } from "@/data/products";
+import Link from "next/link";
 import Image from "next/image";
+import ProductCard from "@/components/ProductCard";
+import Footer from "@/components/Footer";
+import Navigation from "@/components/Navigation";
 
-export default function Home() {
+const Index = () => {
+  const featuredProducts = getFeaturedProducts();
+
+  const categories = [
+    {
+      name: "Insumos Médicos",
+      description: "Suministros esenciales para atención médica",
+      icon: Heart,
+      image: medicalSupplies,
+      count: "150+ productos",
+    },
+    {
+      name: "Equipos Diagnósticos",
+      description: "Tecnología avanzada para diagnóstico preciso",
+      icon: Stethoscope,
+      image: medicalEquipment,
+      count: "80+ productos",
+    },
+    {
+      name: "Protección Personal",
+      description: "EPP certificado para profesionales de salud",
+      icon: Shield,
+      image: medicalSupplies,
+      count: "200+ productos",
+    },
+    {
+      name: "Mobiliario Hospitalario",
+      description: "Mobiliario especializado para centros médicos",
+      icon: Users,
+      image: medicalEquipment,
+      count: "60+ productos",
+    },
+  ];
+
+  const benefits = [
+    {
+      icon: Award,
+      title: "Calidad Certificada",
+      description: "Productos con certificaciones internacionales FDA, CE, ISO",
+    },
+    {
+      icon: Truck,
+      title: "Envío Rápido",
+      description: "Entrega en 24-48 horas en toda la región metropolitana",
+    },
+    {
+      icon: Shield,
+      title: "Garantía Extendida",
+      description: "Garantía extendida en todos nuestros equipos médicos",
+    },
+    {
+      icon: Clock,
+      title: "Soporte 24/7",
+      description: "Asistencia técnica disponible las 24 horas del día",
+    },
+  ];
+
+  const testimonials = [
+    {
+      name: "Dr. María González",
+      position: "Directora Médica - Hospital Central",
+      content:
+        "Excelente calidad en productos y servicio. Llevan años siendo nuestro proveedor confiable.",
+      rating: 5,
+    },
+    {
+      name: "Enf. Carlos Rodríguez",
+      position: "Jefe de Enfermería - Clínica San José",
+      content:
+        "Productos de primera calidad y entrega siempre puntual. Altamente recomendados.",
+      rating: 5,
+    },
+    {
+      name: "Dr. Ana Martínez",
+      position: "Cardióloga - Centro Cardiovascular",
+      content:
+        "La mejor relación calidad-precio del mercado. Su asesoría técnica es excepcional.",
+      rating: 5,
+    },
+  ];
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen">
+      <Navigation />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Hero Section */}
+      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${heroImage.src})` }}
+        />
+        <div className="absolute inset-0 hero-gradient opacity-90" />
+        <div className="relative z-10 container mx-auto px-4 text-center text-white">
+          <h1 className="text-5xl lg:text-6xl font-bold mb-6 animate-fade-up">
+            Equipos Médicos
+            <span className="block text-cyan-400/65">de Confianza</span>
+          </h1>
+          <p className="text-xl lg:text-2xl mb-8 max-w-2xl mx-auto animate-fade-up">
+            Líderes en la distribución de equipos médicos y suministros
+            hospitalarios con más de 15 años de experiencia
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up">
+            <Button
+              size="lg"
+              className="bg-white text-primary hover:bg-white/90 px-8 py-3"
+              asChild
+            >
+              <Link href="/productos">
+                Ver Productos
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-white  hover:bg-white hover:text-primary px-8 py-3"
+              asChild
+            >
+              <Link href="/contacto" className="text-primary">
+                Solicitar Cotización
+              </Link>
+            </Button>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Categories Section */}
+      <section className="py-20 section-gradient">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-foreground mb-4">
+              Nuestras Categorías
+            </h2>
+            <p className="text-xl text-accent max-w-2xl mx-auto">
+              Amplio catálogo de productos médicos para todas las especialidades
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {categories.map((category, index) => {
+              const IconComponent = category.icon;
+              return (
+                <Card
+                  key={category.name}
+                  className="group hover-scale card-shadow hover:card-shadow-hover transition-smooth border-accent/20 overflow-hidden"
+                >
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={category.image}
+                      alt={category.name}
+                      className="w-full h-full object-cover transition-smooth group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-primary/80 flex items-center justify-center">
+                      <IconComponent className="h-16 w-16 text-white" />
+                    </div>
+                  </div>
+                  <CardContent className="p-6 text-center">
+                    <h3 className="text-xl font-semibold text-foreground mb-2">
+                      {category.name}
+                    </h3>
+                    <p className="text-accent mb-3">{category.description}</p>
+                    <p className="text-sm font-medium text-primary">
+                      {category.count}
+                    </p>
+                    <Button
+                      variant="outline"
+                      className="mt-4 border-primary text-primary hover:bg-primary hover:text-white w-full"
+                      asChild
+                    >
+                      <Link href="/productos">Ver Productos</Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Products */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-foreground mb-4">
+              Productos Destacados
+            </h2>
+            <p className="text-xl text-accent max-w-2xl mx-auto">
+              Selección de nuestros productos más populares y de mayor calidad
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-primary text-primary hover:bg-primary hover:text-white"
+              asChild
+            >
+              <Link href="/productos">
+                Ver Todos los Productos
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="py-20 bg-secondary">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-foreground mb-4">
+              ¿Por Qué Elegirnos?
+            </h2>
+            <p className="text-xl text-accent max-w-2xl mx-auto">
+              Comprometidos con la excelencia en productos y servicios médicos
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {benefits.map((benefit, index) => {
+              const IconComponent = benefit.icon;
+              return (
+                <div
+                  key={benefit.title}
+                  className="text-center group hover-scale transition-smooth"
+                >
+                  <div className="w-20 h-20 mx-auto mb-6 bg-primary rounded-full flex items-center justify-center group-hover:bg-primary/90 transition-smooth">
+                    <IconComponent className="h-10 w-10 text-white" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-accent">{benefit.description}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-foreground mb-4">
+              Lo Que Dicen Nuestros Clientes
+            </h2>
+            <p className="text-xl text-accent max-w-2xl mx-auto">
+              Testimonios de profesionales de la salud que confían en nosotros
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <Card
+                key={testimonial.name}
+                className="card-shadow hover:card-shadow-hover transition-smooth border-accent/20"
+              >
+                <CardContent className="p-6">
+                  <div className="flex mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="h-5 w-5 text-yellow-400 fill-current"
+                      />
+                    ))}
+                  </div>
+                  <p className="text-accent mb-6 italic">
+                    "{testimonial.content}"
+                  </p>
+                  <div>
+                    <h4 className="font-semibold text-foreground">
+                      {testimonial.name}
+                    </h4>
+                    <p className="text-sm text-accent">
+                      {testimonial.position}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 hero-gradient">
+        <div className="container mx-auto px-4 text-center text-white">
+          <h2 className="text-4xl font-bold mb-6">
+            ¿Listo para Equipar tu Centro Médico?
+          </h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            Contacta con nuestros especialistas para recibir asesoría
+            personalizada y cotizaciones especiales
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              size="lg"
+              className="bg-white text-primary hover:bg-white/90"
+              asChild
+            >
+              <Link href="/contacto">Solicitar Cotización</Link>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-white text-white hover:bg-white hover:text-primary"
+            >
+              Llamar Ahora: (555) 123-4567
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   );
-}
+};
+
+export default Index;
