@@ -11,7 +11,9 @@ import {
   Linkedin,
   Send,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import logo from "../../public/logo.png";
 
 const Footer = () => {
   return (
@@ -48,12 +50,15 @@ const Footer = () => {
           {/* Company info */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">M</span>
-              </div>
-              <div>
-                <h1 className="text-xl font-bold">MedicoEquip</h1>
-                <p className="text-xs text-accent">Equipos Médicos</p>
+              <div className="bg-transparent rounded-lg flex items-center justify-center">
+                <Image
+                  src={logo}
+                  alt="logo"
+                  width={50}
+                  height={50}
+                  className="object-contain"
+                  priority
+                />
               </div>
             </div>
             <p className="text-accent mb-6">
