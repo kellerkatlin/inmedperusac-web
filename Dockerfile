@@ -4,6 +4,9 @@ WORKDIR /app
 
 COPY package.json ./
 
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
+
 RUN npm install
 
 COPY . .
