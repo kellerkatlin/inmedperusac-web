@@ -1,21 +1,20 @@
-FROM node:20-alpine
-
+FROM node:20-alpine AS deps
 WORKDIR /app
+RUN corepack enable
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
-COPY package.json ./
-
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_ENV=production
-
-RUN npm install
-
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN pnpm build
 
-# Agregamos el build aquí:
-RUN npm run build
-
-# Exponemos el puerto 3002 por default
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+COPY --from=builder /app ./
 EXPOSE 3002
-
-# Levantamos el server de Next.js
 CMD ["npx", "next", "start", "-p", "3002"]
