@@ -51,14 +51,14 @@ const Index = () => {
       count: "150+ productos",
     },
     {
-      name: "Equipos Diagnósticos",
+      name: "Equipos e Instrumental Médico",
       description: "Tecnología avanzada para diagnóstico preciso",
       icon: Stethoscope,
       image: medicalEquipment,
       count: "80+ productos",
     },
     {
-      name: "Protección Personal",
+      name: "Medicamentos",
       description: "EPP certificado para profesionales de salud",
       icon: Shield,
       image: medicalSupplies,
@@ -82,7 +82,7 @@ const Index = () => {
     {
       icon: Truck,
       title: "Envío Rápido",
-      description: "Entrega en 24-48 horas en toda la región metropolitana",
+      description: "Entrega en 36-48 horas en todo el Perú",
     },
     {
       icon: Shield,
@@ -130,16 +130,15 @@ const Index = () => {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${heroImage.src})` }}
         />
-        <div className="absolute inset-0 hero-gradient opacity-90" />
-        <div className="relative z-10 container mx-auto px-4 text-center text-white">
-          <h1 className="text-5xl lg:text-6xl font-bold mb-6 animate-fade-up">
-            Equipos Médicos
-            <span className="block text-cyan-400/65">de Confianza</span>
+        <div className="absolute  inset-0 hero-gradient opacity-90" />
+        <div className="relative z-10  container mx-auto px-4 text-center text-white">
+          <h1 className="text-4xl lg:text-6xl font-bold mb-6 animate-fade-up">
+            Insumos, Medicamentos
+            <span className="block text-cyan-400/65">
+              Equipos e Instrumental Médico
+            </span>
           </h1>
-          <p className="text-xl lg:text-2xl mb-8 max-w-2xl mx-auto animate-fade-up">
-            Líderes en la distribución de equipos médicos y suministros
-            hospitalarios con más de 15 años de experiencia
-          </p>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up">
             <Button
               size="lg"
@@ -151,15 +150,19 @@ const Index = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
+
             <Button
               size="lg"
               variant="outline"
-              className="border-white  hover:bg-white hover:text-primary px-8 py-3"
-              asChild
+              className=" border-primary  hover:bg-white bg-primary hover:text-primary px-8 py-3"
+              onClick={() =>
+                window.open(
+                  `https://wa.me/51942300445?text=Hola, quiero más información sobre los productos médicos de inmedperusac`,
+                  "_blank"
+                )
+              }
             >
-              <Link href="/contacto" className="text-primary">
-                Solicitar Cotización
-              </Link>
+              Solicitar Cotización
             </Button>
           </div>
         </div>
@@ -347,14 +350,16 @@ const Index = () => {
               className="bg-white text-primary hover:bg-white/90"
               asChild
             >
-              <Link href="/contacto">Solicitar Cotización</Link>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-primary"
-            >
-              Llamar Ahora: (555) 123-4567
+              <Button
+                onClick={() =>
+                  window.open(
+                    `https://wa.me/51942300445?text=Hola, quiero más información sobre los productos médicos de inmedperusac`,
+                    "_blank"
+                  )
+                }
+              >
+                Solicitar Cotización
+              </Button>
             </Button>
           </div>
         </div>

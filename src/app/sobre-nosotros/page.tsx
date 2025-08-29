@@ -9,6 +9,16 @@ import {
   TrendingUp,
   Globe,
   Shield,
+  Crown,
+  Clock,
+  ShieldCheck,
+  Handshake,
+  Truck,
+  Package,
+  ClipboardCheck,
+  Building2,
+  CheckCircle2,
+  Sparkles,
 } from "lucide-react";
 import aboutImage from "../../../public/about-us-medical.jpg";
 import Navigation from "@/components/Navigation";
@@ -37,63 +47,116 @@ const About = () => {
 
   const values = [
     {
-      icon: Heart,
-      title: "Compromiso con la Salud",
+      icon: Handshake,
+      title: "Honradez y Honestidad",
       description:
-        "Nos dedicamos a mejorar la calidad de vida de las personas a través de equipos médicos de excelencia.",
+        "Actuamos con transparencia y rectitud en beneficio de todas las personas e instituciones con las que interactuamos.",
+    },
+    {
+      icon: CheckCircle,
+      title: "Compromiso con los Clientes",
+      description:
+        "Cumplimos lo que prometemos y respondemos con nuestras capacidades a la confianza depositada en nosotros.",
+    },
+    {
+      icon: ShieldCheck,
+      title: "Seguridad y Confianza",
+      description:
+        "Prevenimos riesgos y garantizamos el uso seguro de nuestros productos y servicios, con ambientes e infraestructura adecuados.",
     },
     {
       icon: Award,
-      title: "Calidad Garantizada",
+      title: "Calidad de Servicio",
       description:
-        "Trabajamos únicamente con proveedores certificados y productos que cumplen los más altos estándares internacionales.",
+        "Ofrecemos marcas reconocidas y soluciones de calidad que satisfacen las necesidades de nuestros clientes.",
+    },
+    {
+      icon: Crown,
+      title: "Liderazgo",
+      description:
+        "Fomentamos respeto, lealtad y gratitud para consolidar nuestro liderazgo en la región oriente.",
     },
     {
       icon: Users,
-      title: "Servicio Personalizado",
+      title: "Trabajo en Equipo",
       description:
-        "Cada cliente recibe atención especializada y soluciones adaptadas a sus necesidades específicas.",
+        "El éxito es de todos: colaboramos para cumplir nuestra misión y mejorar cada día.",
     },
     {
-      icon: Shield,
-      title: "Confianza y Transparencia",
+      icon: Clock,
+      title: "Puntualidad",
       description:
-        "Construimos relaciones duraderas basadas en la honestidad, transparencia y cumplimiento de compromisos.",
+        "Respetamos los tiempos acordados con clientes y proveedores, cumpliendo cada compromiso a tiempo.",
     },
   ];
 
-  const achievements = [
+  const principles = [
     {
-      number: "15+",
-      label: "Años de Experiencia",
-      description: "Más de una década sirviendo al sector salud",
+      icon: ShieldCheck,
+      title: "Cultura de Calidad",
+      description:
+        "Mejora continua para lograr eficacia, eficiencia y productividad, buscando la excelencia para clientes y personal.",
     },
     {
-      number: "500+",
-      label: "Productos Disponibles",
-      description: "Amplio catálogo de equipos médicos",
+      icon: CheckCircle2,
+      title: "Compromiso en el Servicio",
+      description:
+        "Sobresalimos por el nivel de nuestros servicios y productos, cumpliendo lo prometido.",
     },
     {
-      number: "1000+",
-      label: "Clientes Satisfechos",
-      description: "Hospitales y clínicas que confían en nosotros",
+      icon: Users,
+      title: "Desarrollo y Bienestar Humano",
+      description:
+        "Seguridad física, social y emocional; capacitación y crecimiento profesional de nuestro equipo.",
     },
     {
-      number: "24/7",
-      label: "Soporte Técnico",
-      description: "Asistencia disponible cuando la necesites",
+      icon: Sparkles,
+      title: "Cultura de la Innovación",
+      description:
+        "Equipos y procesos actualizados con TIC para comercializar y distribuir mejor nuestros productos y servicios.",
     },
   ];
 
-  const whyChooseUs = [
-    "Certificaciones internacionales FDA, CE, ISO",
-    "Garantía extendida en todos los equipos",
-    "Servicio de instalación y capacitación",
-    "Soporte técnico especializado",
-    "Financiamiento flexible disponible",
-    "Entrega rápida en toda la región",
-    "Repuestos originales garantizados",
-    "Mantenimiento preventivo programado",
+  const processSteps = [
+    {
+      icon: ClipboardCheck,
+      title: "Adquisición & Verificación",
+      description:
+        "Proceso responsable de compra y control, cumpliendo estándares y buenas prácticas.",
+    },
+    {
+      icon: Package,
+      title: "Almacenamiento BPA",
+      description:
+        "Buenas prácticas de almacenamiento, embalaje adecuado y conservación de la calidad.",
+    },
+    {
+      icon: ShieldCheck,
+      title: "Control de Calidad",
+      description:
+        "Verificación del producto por profesional competente antes del despacho.",
+    },
+    {
+      icon: Truck,
+      title: "Despacho & Distribución",
+      description:
+        "Logística ordenada y rápida desde la compra hasta la entrega final al cliente.",
+    },
+  ];
+
+  const suppliers = [
+    {
+      name: "BBRAUN",
+      highlight: "Distribuidores exclusivos en la región oriente",
+      description:
+        "Trabajamos con marcas de prestigio nacional e internacional que garantizan la calidad de los productos.",
+    },
+  ];
+
+  const clientsPoints = [
+    "Buen trato, respeto y comunicación permanente.",
+    "Puntualidad en la entrega a nivel de la región oriente.",
+    "Atención personalizada y asesoramiento especializado.",
   ];
 
   return (
@@ -109,15 +172,19 @@ const About = () => {
                 Sobre <span className="text-primary">Inmed Perú Sac</span>
               </h1>
               <p className="text-xl text-accent mb-6 leading-relaxed">
-                Somos líderes en la distribución de equipos médicos y
-                suministros hospitalarios, comprometidos con brindar soluciones
-                de calidad para el sector salud desde hace más de 15 años.
+                Somos INMED PERÚ SAC, empresa de la Amazonía peruana con más de
+                5 años de experiencia. A través de nuestra Droguería importamos
+                y distribuimos equipos, dispositivos e insumos médicos de marcas
+                reconocidas, con cobertura en Loreto, San Martín, Amazonas y
+                Ucayali.
               </p>
+
               <p className="text-lg text-accent leading-relaxed">
-                Nuestra misión es contribuir al mejoramiento de la atención
-                médica proporcionando equipos confiables, servicio excepcional y
-                soporte técnico especializado a hospitales, clínicas y
-                profesionales de la salud en toda la región.
+                Ofrecemos una solución integral: venta e importación,
+                mantenimiento y repuestos postventa. Atendemos instituciones
+                públicas y privadas, clínicas, farmacias y centros de salud, con
+                precios competitivos y trato cercano; nos respalda un equipo
+                altamente capacitado con más de 14 años en el rubro.
               </p>
             </div>
             <div className="relative">
@@ -127,7 +194,7 @@ const About = () => {
                 className="w-full h-96 object-cover rounded-lg card-shadow"
               />
               <div className="absolute -bottom-6 -left-6 bg-primary text-white p-6 rounded-lg card-shadow">
-                <div className="text-3xl font-bold">15+</div>
+                <div className="text-3xl font-bold">14+</div>
                 <div className="text-sm">Años de Experiencia</div>
               </div>
             </div>
@@ -150,7 +217,9 @@ const About = () => {
                   </h2>
                 </div>
                 <p className="text-accent leading-relaxed">
-                  {company?.missionDescription}
+                  Comercializar y distribuir, los insumos, dispositivos y
+                  equipamiento relacionado con la salud de las personas, con
+                  productos de calidad y precios accesibles
                 </p>
               </CardContent>
             </Card>
@@ -166,7 +235,12 @@ const About = () => {
                   </h2>
                 </div>
                 <p className="text-accent leading-relaxed">
-                  {company?.visionDescription}
+                  Ser reconocidos como líderes regionales en el mercado en venta
+                  de insumos, dispositivos, equipamiento Hospitalario, Clínicas
+                  y Centros de Diagnóstico; para instituciones del sector
+                  privado y público, con productos de alta tecnología y calidad,
+                  a precios accesibles y con un servicio de post venta de
+                  calidad
                 </p>
               </CardContent>
             </Card>
@@ -211,92 +285,161 @@ const About = () => {
         </div>
       </section>
 
-      {/* Achievements */}
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-foreground mb-4">
-              Nuestros Logros
+              Nuestros Principios
             </h2>
-            <p className="text-xl text-accent max-w-2xl mx-auto">
-              Cifras que respaldan nuestro compromiso y experiencia en el sector
-              médico
+            <p className="text-xl text-accent max-w-3xl mx-auto">
+              Los pilares que guían nuestro trabajo diario y nuestra relación
+              con clientes y colaboradores.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {achievements.map((achievement, index) => (
-              <div
-                key={achievement.label}
-                className="text-center group hover-scale transition-smooth"
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {principles.map((p, i) => {
+              const Icon = p.icon;
+              return (
+                <Card
+                  key={p.title}
+                  className="card-shadow hover:card-shadow-hover transition-smooth border-accent/20"
+                >
+                  <CardContent className="p-6">
+                    <div className="flex items-center mb-4">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
+                        <Icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-foreground">
+                        {p.title}
+                      </h3>
+                    </div>
+                    <p className="text-accent">{p.description}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+      <section className="py-20 bg-secondary/40">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-foreground mb-4">
+              Nuestro Servicio y Procesos
+            </h2>
+            <p className="text-xl text-accent max-w-3xl mx-auto">
+              Implementamos nuevos procesos y tecnología para ventas y
+              logística, cumpliendo estándares de calidad y BPA.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {processSteps.map((s) => {
+              const Icon = s.icon;
+              return (
+                <Card
+                  key={s.title}
+                  className="card-shadow hover:card-shadow-hover transition-smooth border-accent/20"
+                >
+                  <CardContent className="p-6">
+                    <div className="flex items-center mb-4">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
+                        <Icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-foreground">
+                        {s.title}
+                      </h3>
+                    </div>
+                    <p className="text-accent">{s.description}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+
+          <Card className="mt-8 card-shadow border-accent/20">
+            <CardContent className="p-6">
+              <p className="text-accent">
+                La adecuada organización de nuestras áreas permite un servicio
+                ordenado y rápido desde la adquisición hasta el despacho final,
+                con verificación de calidad por personal competente.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-foreground mb-4">
+              Proveedores
+            </h2>
+            <p className="text-xl text-accent max-w-2xl mx-auto">
+              Marcas de prestigio nacional e internacional que garantizan la
+              calidad de nuestros productos.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {suppliers.map((s) => (
+              <Card
+                key={s.name}
+                className="card-shadow hover:card-shadow-hover transition-smooth border-accent/20 lg:col-span-2"
               >
-                <div className="text-4xl lg:text-5xl font-bold text-primary mb-2 group-hover:text-primary/80 transition-smooth">
-                  {achievement.number}
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-2">
-                  {achievement.label}
-                </h3>
-                <p className="text-accent">{achievement.description}</p>
-              </div>
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-2">
+                    <Building2 className="h-6 w-6 text-primary mr-2" />
+                    <h3 className="text-xl font-semibold text-foreground">
+                      {s.name}
+                    </h3>
+                  </div>
+                  <p className="text-sm text-primary font-medium mb-2">
+                    {s.highlight}
+                  </p>
+                  <p className="text-accent">{s.description}</p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
       </section>
-
-      {/* Why Choose Us */}
       <section className="py-20 hero-gradient">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-bold text-white mb-6">
-                ¿Por Qué Elegirnos?
-              </h2>
-              <p className="text-xl text-white/90 mb-8">
-                Nos diferenciamos por nuestro compromiso con la excelencia y la
-                satisfacción total de nuestros clientes.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {whyChooseUs.map((reason, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-white mt-1 flex-shrink-0" />
-                    <span className="text-white/90">{reason}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="space-y-6">
-              <Card className="bg-white/10 border-white/20 backdrop-blur-sm">
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-4">
-                    <TrendingUp className="h-8 w-8 text-white mr-3" />
-                    <h3 className="text-xl font-semibold text-white">
-                      Crecimiento Continuo
-                    </h3>
-                  </div>
-                  <p className="text-white/90">
-                    Año tras año expandimos nuestro catálogo y mejoramos
-                    nuestros servicios para satisfacer las necesidades
-                    cambiantes del sector salud.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-white/10 border-white/20 backdrop-blur-sm">
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-4">
-                    <Users className="h-8 w-8 text-white mr-3" />
-                    <h3 className="text-xl font-semibold text-white">
-                      Equipo Especializado
-                    </h3>
-                  </div>
-                  <p className="text-white/90">
-                    Contamos con un equipo de profesionales altamente
-                    capacitados en tecnología médica y atención al cliente.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white mb-4">Clientes</h2>
+            <p className="text-xl text-white/90 max-w-2xl mx-auto">
+              Nos caracterizamos por el buen trato, respeto y comunicación con
+              nuestros clientes en toda la región oriente.
+            </p>
           </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {clientsPoints.map((txt, i) => (
+              <Card
+                key={i}
+                className="bg-white/10 border-white/20 backdrop-blur-sm"
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle2 className="h-6 w-6 text-white flex-shrink-0" />
+                    <span className="text-white/90">{txt}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <Card className="mt-8 bg-white/10 border-white/20 backdrop-blur-sm">
+            <CardContent className="p-6">
+              <p className="text-white/90">
+                Contamos con personal adecuado para un trato personalizado y
+                asesoramiento respectivo sobre los productos que vendemos,
+                garantizando puntualidad en cada entrega.
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </section>
 

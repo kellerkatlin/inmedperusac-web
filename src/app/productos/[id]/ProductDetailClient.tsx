@@ -11,7 +11,6 @@ import {
   MessageCircle,
   Share2,
   Heart,
-  CheckCircle,
   Phone,
   Mail,
   Download,
@@ -63,7 +62,7 @@ export default function ProductDetailClient({ id }: { id: string }) {
         setLoading(true);
         setError(null);
         const p = await getProductByIdData(id);
-        console.log(p)
+        console.log(p);
         if (!cancelled) setProduct(p.data?.[0] ?? null);
       } catch (e: any) {
         if (!cancelled) setError(e?.message ?? "No se pudo cargar el producto");
@@ -120,20 +119,43 @@ export default function ProductDetailClient({ id }: { id: string }) {
     return imgs.length > 0 ? imgs : [placeholder];
   }, [product]);
 
+  const html = (product?.description ?? "")
+    .replace(/<pre[^>]*>/g, "<p>")
+    .replace(/<\/pre>/g, "</p>");
+
   // Derivar especificaciones legibles desde productAttributes
+  // Derivar especificaciones (Nombre del atributo + valor asignado)
   const specs = useMemo(() => {
-    if (!product) return [];
-    const list: { label: string; value: string }[] = [];
-    for (const attr of product.productAttributes ?? []) {
-      const v = attr.attributeValue;
-      if (!v) continue;
-      if (v.valueString) list.push({ label: "Valor", value: v.valueString });
-      if (typeof v.valueNumber === "number")
-        list.push({ label: "Numérico", value: String(v.valueNumber) });
-      if (typeof v.valueBoolean === "boolean")
-        list.push({ label: "Booleano", value: v.valueBoolean ? "Sí" : "No" });
+    if (!product) return [] as { label: string; values: string[] }[];
+
+    const map = new Map<string, Set<string>>();
+
+    for (const pa of product.productAttributes ?? []) {
+      const av = pa.attributeValue;
+      const name = av?.attribute?.name?.trim();
+      if (!name || !av) continue;
+
+      // Normalizamos el valor a string
+      let value: string | null = null;
+      if (typeof av.valueString === "string" && av.valueString.trim() !== "") {
+        value = av.valueString.trim();
+      } else if (typeof av.valueNumber === "number") {
+        value = String(av.valueNumber);
+      } else if (typeof av.valueBoolean === "boolean") {
+        value = av.valueBoolean ? "Sí" : "No";
+      }
+
+      if (!value) continue;
+
+      if (!map.has(name)) map.set(name, new Set<string>());
+      map.get(name)!.add(value);
     }
-    return list;
+
+    // Devolvemos [{ label, values[] }]
+    return Array.from(map.entries()).map(([label, set]) => ({
+      label,
+      values: Array.from(set.values()),
+    }));
   }, [product]);
 
   // Loading state (simple)
@@ -216,7 +238,7 @@ export default function ProductDetailClient({ id }: { id: string }) {
             )}
             <span>/</span>
             <span className="text-foreground font-medium">
-              {product.description}
+              {product.tittle}
             </span>
           </div>
         </div>
@@ -242,8 +264,8 @@ export default function ProductDetailClient({ id }: { id: string }) {
             <div className="relative mb-4">
               <img
                 src={gallery[selectedImage]}
-                alt={product.description}
-                className="w-full h-96 object-cover rounded-lg border border-accent/20"
+                alt={product.tittle}
+                className="w-full h-96 object-contain rounded-lg border border-accent/20"
               />
               <Button
                 variant="ghost"
@@ -273,7 +295,7 @@ export default function ProductDetailClient({ id }: { id: string }) {
                   >
                     <img
                       src={image}
-                      alt={`${product.description} ${index + 1}`}
+                      alt={`${product.tittle} ${index + 1}`}
                       className="w-full h-full object-cover"
                     />
                   </button>
@@ -289,52 +311,53 @@ export default function ProductDetailClient({ id }: { id: string }) {
                 {product.category?.description ?? "Categoría"}
               </Badge>
               <h1 className="text-3xl font-bold text-foreground mb-2">
-                {product.description}
+                {product.tittle}
               </h1>
 
               {/* Precio */}
               {Number.isFinite(product.price) && (
-                <p className="text-medical-dark font-medium">
+                <p className="text-foreground font-medium">
                   {formatMoney(product.price)}
                 </p>
               )}
 
               {/* Estado */}
-              {product.status && (
-                <p className="text-xs text-accent mt-1 uppercase tracking-wide">
-                  {product.status}
-                </p>
-              )}
             </div>
 
             {/* Descripción breve */}
             <div className="mb-6">
               <p className="text-lg text-accent leading-relaxed">
-                {product.description}
+                {product.tittle}
               </p>
             </div>
 
             {/* Acciones */}
-            <div className="space-y-4 mb-8">
-              <div className="flex gap-4">
+            <div className="space-y-4   mb-8">
+              <div className="flex gap-4 flex-col md:flex-row">
                 <Button
                   size="lg"
-                  className="flex-1 bg-primary hover:bg-primary/90"
+                  className="flex-1 bg-primary py-3 hover:bg-primary/90"
+                  onClick={() =>
+                    window.open(
+                      `https://wa.me/51942300445?text=Hola, quiero más información sobre el producto: ${product.tittle}`,
+                      "_blank"
+                    )
+                  }
                 >
                   <MessageCircle className="h-5 w-5 mr-2" />
                   Solicitar Información
                 </Button>
-                <Button
+                {/* <Button
                   size="lg"
                   variant="outline"
                   className="border-primary text-primary hover:bg-primary hover:text-white"
                 >
                   <Phone className="h-5 w-5 mr-2" />
                   Llamar
-                </Button>
+                </Button> */}
               </div>
 
-              <div className="flex gap-4">
+              {/* <div className="flex gap-4">
                 <Button variant="outline" className="flex-1">
                   <Download className="h-5 w-5 mr-2" />
                   Descargar Ficha Técnica
@@ -342,7 +365,7 @@ export default function ProductDetailClient({ id }: { id: string }) {
                 <Button variant="ghost" size="icon">
                   <Share2 className="h-5 w-5" />
                 </Button>
-              </div>
+              </div> */}
             </div>
 
             {/* Contact Card */}
@@ -358,13 +381,11 @@ export default function ProductDetailClient({ id }: { id: string }) {
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center space-x-2">
                     <Phone className="h-4 w-4 text-primary" />
-                    <span className="text-accent">+1 (555) 123-4567</span>
+                    <span className="text-accent">942 300 445</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Mail className="h-4 w-4 text-primary" />
-                    <span className="text-accent">
-                      contacto@medicoequip.com
-                    </span>
+                    <span className="text-accent">ventas@inmedperusac.com</span>
                   </div>
                 </div>
               </CardContent>
@@ -382,7 +403,6 @@ export default function ProductDetailClient({ id }: { id: string }) {
               </TabsTrigger>
               <TabsTrigger value="support">Soporte y Garantía</TabsTrigger>
             </TabsList>
-
             <TabsContent value="specifications" className="mt-6">
               <Card className="card-shadow border-accent/20">
                 <CardContent className="p-6">
@@ -395,19 +415,41 @@ export default function ProductDetailClient({ id }: { id: string }) {
                       No hay especificaciones disponibles.
                     </p>
                   ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {specs.map((row, idx) => (
-                        <div
-                          key={`${row.label}-${idx}`}
-                          className="flex justify-between border-b border-accent/20 pb-2"
-                        >
-                          <span className="font-medium text-foreground">
-                            {row.label}:
-                          </span>
-                          <span className="text-accent">{row.value}</span>
-                        </div>
-                      ))}
-                    </div>
+                    <table className="w-full border-collapse">
+                      <tbody>
+                        {specs.map((row, idx) => (
+                          <tr
+                            key={`${row.label}-${idx}`}
+                            className="border-b border-accent/20"
+                          >
+                            {/* celda de la label con rowspan */}
+                            <td
+                              rowSpan={row.values.length}
+                              className="font-medium text-foreground text-left align-middle px-2 py-2 w-1/3"
+                            >
+                              {row.label}
+                            </td>
+
+                            {/* primera celda de valores */}
+                            <td className="text-accent text-left px-2 py-2">
+                              {row.values[0]}
+                            </td>
+                          </tr>
+                        ))}
+                        {specs.map((row, idx) =>
+                          row.values.slice(1).map((val, i) => (
+                            <tr
+                              key={`${row.label}-${idx}-${i}`}
+                              className="border-b border-accent/20"
+                            >
+                              <td className="text-accent text-left px-2 py-2">
+                                {val}
+                              </td>
+                            </tr>
+                          ))
+                        )}
+                      </tbody>
+                    </table>
                   )}
                 </CardContent>
               </Card>
@@ -419,26 +461,25 @@ export default function ProductDetailClient({ id }: { id: string }) {
                   <h3 className="text-xl font-semibold text-foreground mb-4">
                     Descripción Detallada
                   </h3>
-                  <div className="prose max-w-none text-accent">
-                    <p className="mb-4">{product.description}</p>
-                    {specs.length > 0 && (
-                      <>
-                        <h4 className="text-lg font-semibold text-foreground mb-2">
-                          Características Destacadas:
-                        </h4>
-                        <ul className="space-y-1">
-                          {specs.slice(0, 6).map((row, i) => (
-                            <li key={i} className="flex items-start space-x-2">
-                              <span className="text-primary">•</span>
-                              <span>
-                                {row.label}: {row.value}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </>
-                    )}
-                  </div>
+
+                  {product?.description && product.description.trim() !== "" ? (
+                    <div
+                      className="
+    max-w-none text-foreground
+    [&_*]:break-words
+    [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:mb-4
+    [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:mt-6 [&_h2]:mb-3
+    [&_h3]:text-xl  [&_h3]:font-semibold [&_h3]:mt-5 [&_h3]:mb-2
+    [&_p]:mb-4
+    [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4
+    [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4
+    [&_pre]:whitespace-pre-line [&_pre]:break-words [&_pre]:m-0 [&_pre]:font-sans [&_pre]:text-base
+  "
+                      dangerouslySetInnerHTML={{ __html: html }}
+                    />
+                  ) : (
+                    <p className="text-accent">No hay descripción.</p>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>

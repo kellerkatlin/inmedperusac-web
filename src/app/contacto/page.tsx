@@ -14,7 +14,6 @@ import {
   MessageCircle,
   HeadphonesIcon,
   Building,
-  CheckCircle,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import Navigation from "@/components/Navigation";
@@ -102,52 +101,65 @@ const Contact = () => {
       setIsSubmitting(false);
     }
   };
+  const openGoogleMaps = () => {
+    if (typeof window !== "undefined") {
+      window.open(
+        "https://www.google.com/maps/place/Circunvalacion+Cumbaza+302,...",
+        "_blank",
+        "noopener,noreferrer"
+      );
+    }
+  };
+  const MAPS_URL =
+    "https://www.google.com/maps/place/Circunvalacion+Cumbaza+302,+Tarapoto+22201/data=!4m2!3m1!1s0x91ba0be52ed77d91:0x99d83a7f23f4e483?sa=X&ved=1t:242&ictx=111";
 
   const contactInfo = [
     {
       icon: MapPin,
       title: "Dirección",
-      content: "Av. Medicina 123, Sector Salud\nCiudad Médica, CM 12345",
+      content: "Av. Circuvalación Cumbaza N° 302 Morales San Martin",
       action: "Ver en Google Maps",
+      href: MAPS_URL, // ✅ string, no función
+      external: true, // para poner target="_blank"
     },
     {
       icon: Phone,
       title: "Teléfono",
-      content: "+1 (555) 123-4567\n+1 (555) 123-4568",
+      content: "942300445",
       action: "Llamar ahora",
+      href: "tel:942300445",
     },
     {
       icon: Mail,
       title: "Correo Electrónico",
-      content: "contacto@medicoequip.com\nventas@medicoequip.com",
+      content: "ventas@inmedperusac.com",
       action: "Enviar email",
+      href: "mailto:ventas@inmedperusac.com",
     },
     {
       icon: Clock,
       title: "Horarios de Atención",
       content: "Lunes - Viernes: 8:00 AM - 6:00 PM\nSábados: 9:00 AM - 2:00 PM",
-      action: "Ver horarios",
     },
   ];
-
   const departments = [
     {
       name: "Ventas",
       description: "Cotizaciones y asesoría comercial",
-      phone: "+1 (555) 123-4567",
+      phone: "+51 942300445",
       email: "ventas@medicoequip.com",
     },
     {
       name: "Soporte Técnico",
       description: "Asistencia técnica y mantenimiento",
-      phone: "+1 (555) 123-4568",
-      email: "soporte@medicoequip.com",
+      phone: "+51 942300445",
+      email: "ventas@medicoequip.com",
     },
     {
       name: "Administración",
       description: "Facturación y administración",
-      phone: "+1 (555) 123-4569",
-      email: "admin@medicoequip.com",
+      phone: "+51 942300445",
+      email: "ventas@medicoequip.com",
     },
   ];
 
@@ -349,13 +361,35 @@ const Contact = () => {
                           <p className="text-sm text-accent whitespace-pre-line mb-2">
                             {info.content}
                           </p>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-primary hover:text-primary/80 p-0 h-auto"
-                          >
-                            {info.action}
-                          </Button>
+                          {info.href ? (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              asChild
+                              className="text-primary hover:text-primary/80 p-0 h-auto"
+                            >
+                              <a
+                                href={info.href}
+                                target={info.external ? "_blank" : undefined}
+                                rel={
+                                  info.external
+                                    ? "noopener noreferrer"
+                                    : undefined
+                                }
+                              >
+                                {info.action}
+                              </a>
+                            </Button>
+                          ) : (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={openGoogleMaps}
+                              className="text-primary hover:text-primary/80 p-0 h-auto"
+                            >
+                              {info.action}
+                            </Button>
+                          )}
                         </div>
                       </div>
                     </CardContent>
@@ -426,7 +460,7 @@ const Contact = () => {
                   className="w-full bg-primary hover:bg-primary/90"
                 >
                   <Phone className="h-4 w-4 mr-2" />
-                  Llamar Ahora: (555) 911-MEDIC
+                  Llamar Ahora: 942300445
                 </Button>
               </CardContent>
             </Card>
@@ -451,9 +485,9 @@ const Contact = () => {
                   <MapPin className="h-12 w-12 mx-auto mb-4 opacity-50" />
                   <p>Mapa interactivo de nuestra ubicación</p>
                   <p className="text-sm mt-2">
-                    Av. Medicina 123, Sector Salud
+                    Av. Circuvalación Cumbaza N° 302
                     <br />
-                    Ciudad Médica, CM 12345
+                    Morales San Martin
                   </p>
                 </div>
               </div>

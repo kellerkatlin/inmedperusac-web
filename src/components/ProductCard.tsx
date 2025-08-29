@@ -37,10 +37,27 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
   const img2 = imgs[1]?.image || null;
 
   // hasta 2 atributos legibles (valueString)
-  const readableAttrs = (product.productAttributes ?? [])
-    .map((a) => a.attributeValue?.valueString)
-    .filter(Boolean)
-    .slice(0, 2) as string[];
+  // hasta 2 atributos legibles (name: valueString)
+  // hasta 2 nombres de atributos
+  // hasta 2 nombres de atributos, únicos (sin repetidos)
+  const readableAttrs = (() => {
+    const seen = new Set<string | number>();
+    const out: string[] = [];
+
+    for (const pa of product.productAttributes ?? []) {
+      const attr = pa?.attributeValue?.attribute;
+      if (!attr?.name) continue;
+
+      const key = (attr as any).id ?? attr.name; // usa id si existe, si no por nombre
+      if (seen.has(key)) continue;
+
+      seen.add(key);
+      out.push(attr.name);
+
+      if (out.length === 2) break; // límite 2
+    }
+    return out;
+  })();
 
   return (
     <Card
@@ -54,7 +71,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
         {/* imagen 1 */}
         <img
           src={img1}
-          alt={product.description}
+          alt={product.tittle}
           className={cn(
             "w-full h-48 object-cover transition-smooth",
             img2 ? "group-hover:opacity-0" : "group-hover:scale-105"
@@ -64,7 +81,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
         {img2 && (
           <img
             src={img2}
-            alt={product.description}
+            alt={product.tittle}
             className="w-full h-48 object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition-smooth"
           />
         )}
@@ -95,7 +112,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
       <CardContent className="p-4">
         {/* Título (usamos description como “nombre”) */}
         <h3 className="font-semibold text-foreground mb-1 line-clamp-2 group-hover:text-primary transition-smooth">
-          {product.description}
+          {product.tittle}
         </h3>
 
         {/* Precio si existe */}

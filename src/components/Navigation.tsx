@@ -50,7 +50,7 @@ const Navigation = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4" />
-                <span>contacto@medicoequip.com</span>
+                <span>ventas@inmedperusac.com</span>
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@ const Navigation = () => {
             </Link>
 
             {/* Desktop search */}
-            <div className="hidden lg:flex items-center flex-1 max-w-md mx-8">
+            {/* <div className="hidden lg:flex items-center flex-1 max-w-md mx-8">
               <div className="relative w-full">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-accent h-4 w-4" />
                 <Input
@@ -88,7 +88,7 @@ const Navigation = () => {
                   className="pl-10 pr-4 py-2 w-full border-accent/30 focus:border-primary"
                 />
               </div>
-            </div>
+            </div> */}
 
             {/* Desktop navigation */}
             <div className="hidden lg:flex items-center space-x-8">
@@ -129,7 +129,7 @@ const Navigation = () => {
           </div>
 
           {/* Mobile search */}
-          <div className="lg:hidden pb-4">
+          {/* <div className="lg:hidden pb-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-accent h-4 w-4" />
               <Input
@@ -140,7 +140,7 @@ const Navigation = () => {
                 className="pl-10 pr-4 py-2 w-full"
               />
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Mobile menu */}

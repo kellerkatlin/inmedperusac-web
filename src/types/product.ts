@@ -6,6 +6,7 @@ export type Product = {
     image: string;
     status: string;
   };
+  tittle: string;
   description: string;
   price: number;
   status: string;
@@ -18,6 +19,12 @@ export type Product = {
     id: number;
     attributeValue: {
       id: number;
+      attribute: {
+        id: number;
+        name: string;
+        dataType: string;
+        status: string;
+      };
       valueString: string;
       valueNumber: number;
       valueBoolean: boolean;

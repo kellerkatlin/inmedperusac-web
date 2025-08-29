@@ -39,7 +39,7 @@ export default function Footer() {
   return (
     <footer className="bg-foreground text-white">
       {/* Newsletter section */}
-      <div className="border-b border-accent/20">
+      {/* <div className="border-b border-accent/20">
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-2xl mx-auto text-center">
             <h3 className="text-2xl font-semibold mb-4">
@@ -62,7 +62,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main footer content */}
       <div className="container mx-auto px-4 py-12">
@@ -83,7 +83,7 @@ export default function Footer() {
             </div>
             <p className="text-accent mb-6">
               Líderes en la distribución de equipos médicos y suministros
-              hospitalarios con más de 15 años de experiencia en el sector
+              hospitalarios con más de 14 años de experiencia en el sector
               salud.
             </p>
             <div className="flex space-x-4">
@@ -127,7 +127,6 @@ export default function Footer() {
                 { name: "Productos", path: "/productos" },
                 { name: "Sobre Nosotros", path: "/sobre-nosotros" },
                 { name: "Contacto", path: "/contacto" },
-                { name: "Preguntas Frecuentes", path: "/faq" },
               ].map((link) => (
                 <li key={link.path}>
                   <Link
@@ -175,19 +174,19 @@ export default function Footer() {
                 <MapPin className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
                 <div>
                   <p className="text-accent">
-                    Av. Medicina 123, Sector Salud
+                    Av. Circuvalación Cumbaza N° 302
                     <br />
-                    Ciudad Médica, CM 12345
+                    Morales San Martin
                   </p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-primary flex-shrink-0" />
-                <p className="text-accent">+1 (555) 123-4567</p>
+                <p className="text-accent">+51 942300445</p>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                <p className="text-accent">contacto@medicoequip.com</p>
+                <p className="text-accent">ventas@medicoequip.com</p>
               </div>
               <div className="flex items-start space-x-3">
                 <Clock className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
