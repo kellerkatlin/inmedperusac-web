@@ -49,44 +49,30 @@ const About = () => {
     {
       icon: Handshake,
       title: "Honradez y Honestidad",
-      description:
-        "Actuamos con transparencia y rectitud en beneficio de todas las personas e instituciones con las que interactuamos.",
     },
     {
       icon: CheckCircle,
       title: "Compromiso con los Clientes",
-      description:
-        "Cumplimos lo que prometemos y respondemos con nuestras capacidades a la confianza depositada en nosotros.",
     },
     {
       icon: ShieldCheck,
       title: "Seguridad y Confianza",
-      description:
-        "Prevenimos riesgos y garantizamos el uso seguro de nuestros productos y servicios, con ambientes e infraestructura adecuados.",
     },
     {
       icon: Award,
       title: "Calidad de Servicio",
-      description:
-        "Ofrecemos marcas reconocidas y soluciones de calidad que satisfacen las necesidades de nuestros clientes.",
     },
     {
       icon: Crown,
       title: "Liderazgo",
-      description:
-        "Fomentamos respeto, lealtad y gratitud para consolidar nuestro liderazgo en la región oriente.",
     },
     {
       icon: Users,
       title: "Trabajo en Equipo",
-      description:
-        "El éxito es de todos: colaboramos para cumplir nuestra misión y mejorar cada día.",
     },
     {
       icon: Clock,
       title: "Puntualidad",
-      description:
-        "Respetamos los tiempos acordados con clientes y proveedores, cumpliendo cada compromiso a tiempo.",
     },
   ];
 
@@ -171,20 +157,33 @@ const About = () => {
               <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
                 Sobre <span className="text-primary">Inmed Perú Sac</span>
               </h1>
-              <p className="text-xl text-accent mb-6 leading-relaxed">
-                Somos INMED PERÚ SAC, empresa de la Amazonía peruana con más de
-                5 años de experiencia. A través de nuestra Droguería importamos
-                y distribuimos equipos, dispositivos e insumos médicos de marcas
-                reconocidas, con cobertura en Loreto, San Martín, Amazonas y
-                Ucayali.
+              <p className="text-sm text-accent mb-4 leading-relaxed">
+                Somos INMED Perú S.A.C., una empresa creada en la región Oriente
+                con alcance nacional, brindando productos de calidad a favor del
+                cuidado de la salud de la población en Perú. Nuestra empresa con
+                más de 10 años de experiencia en la comercialización y
+                distribución de insumos, equipos de laboratorio, productos
+                farmacéuticos, medicamentos, equipamiento Hospitalario, Clínicas
+                y Centros de Diagnóstico.
               </p>
-
-              <p className="text-lg text-accent leading-relaxed">
-                Ofrecemos una solución integral: venta e importación,
-                mantenimiento y repuestos postventa. Atendemos instituciones
-                públicas y privadas, clínicas, farmacias y centros de salud, con
-                precios competitivos y trato cercano; nos respalda un equipo
-                altamente capacitado con más de 14 años en el rubro.
+              <p className="text-sm text-accent mb-4 leading-relaxed">
+                Como parte de ese proceso de fortalecimiento y crecimientos,
+                actualmente nuestra oferta de negocios, nos solo se ciñe a la
+                venta de bienes como equipos y/o dispositivos, sino a la
+                importación de los mismos y prestación de servicios de
+                mantenimiento y venta de repuestos post venta.
+              </p>
+              <p className="text-sm text-accent mb-4 leading-relaxed">
+                Contamos con una amplia cartera de clientes relacionados con la
+                salud de las personas, como instituciones públicas, empresas
+                privadas, farmacias, centros de salud y personas naturales que
+                hacen uso de los productos y servicios que prestamos con buenos
+                precios y de calidad.
+              </p>
+              <p className="text-sm text-accent mb-4 leading-relaxed">
+                En INMED PERÚ SAC, cultivamos el respeto y las buenas relaciones
+                con nuestros clientes, teniendo en cuenta nuestros valores
+                institucionales y personales.
               </p>
             </div>
             <div className="relative">
@@ -219,7 +218,7 @@ const About = () => {
                 <p className="text-accent leading-relaxed">
                   Comercializar y distribuir, los insumos, dispositivos y
                   equipamiento relacionado con la salud de las personas, con
-                  productos de calidad y precios accesibles
+                  productos de calidad y precios accesibles
                 </p>
               </CardContent>
             </Card>
@@ -235,12 +234,11 @@ const About = () => {
                   </h2>
                 </div>
                 <p className="text-accent leading-relaxed">
-                  Ser reconocidos como líderes regionales en el mercado en venta
-                  de insumos, dispositivos, equipamiento Hospitalario, Clínicas
-                  y Centros de Diagnóstico; para instituciones del sector
-                  privado y público, con productos de alta tecnología y calidad,
-                  a precios accesibles y con un servicio de post venta de
-                  calidad
+                  Ser reconocidos como líderes en el mercado en venta de
+                  insumos, dispositivos, equipamiento Hospitalario, Clínicas y
+                  Centros de Diagnóstico; para instituciones del sector privado
+                  y público, con productos de alta tecnología y calidad, a
+                  precios accesibles y con un servicio de post venta de calidad
                 </p>
               </CardContent>
             </Card>
@@ -276,7 +274,6 @@ const About = () => {
                     <h3 className="text-lg font-semibold text-foreground mb-3">
                       {value.title}
                     </h3>
-                    <p className="text-accent text-sm">{value.description}</p>
                   </CardContent>
                 </Card>
               );
@@ -314,7 +311,6 @@ const About = () => {
                         {p.title}
                       </h3>
                     </div>
-                    <p className="text-accent">{p.description}</p>
                   </CardContent>
                 </Card>
               );
