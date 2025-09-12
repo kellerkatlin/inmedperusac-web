@@ -193,7 +193,7 @@ const About = () => {
                 className="w-full h-96 object-cover rounded-lg card-shadow"
               />
               <div className="absolute -bottom-6 -left-6 bg-primary text-white p-6 rounded-lg card-shadow">
-                <div className="text-3xl font-bold">14+</div>
+                <div className="text-3xl font-bold">10+</div>
                 <div className="text-sm">Años de Experiencia</div>
               </div>
             </div>

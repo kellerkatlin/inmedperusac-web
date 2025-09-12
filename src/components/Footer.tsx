@@ -83,7 +83,7 @@ export default function Footer() {
             </div>
             <p className="text-accent mb-6">
               Líderes en la distribución de equipos médicos y suministros
-              hospitalarios con más de 14 años de experiencia en el sector
+              hospitalarios con más de 10 años de experiencia en el sector
               salud.
             </p>
             <div className="flex space-x-4">
@@ -107,13 +107,6 @@ export default function Footer() {
                 className="text-accent hover:text-primary"
               >
                 <Instagram className="h-5 w-5" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-accent hover:text-primary"
-              >
-                <Linkedin className="h-5 w-5" />
               </Button>
             </div>
           </div>
@@ -186,7 +179,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                <p className="text-accent">ventas@medicoequip.com</p>
+                <p className="text-accent">ventas@inmedperusac.com</p>
               </div>
               <div className="flex items-start space-x-3">
                 <Clock className="h-5 w-5 text-primary mt-1 flex-shrink-0" />

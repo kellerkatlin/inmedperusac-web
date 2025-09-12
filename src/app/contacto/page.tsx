@@ -147,19 +147,19 @@ const Contact = () => {
       name: "Ventas",
       description: "Cotizaciones y asesoría comercial",
       phone: "+51 942300445",
-      email: "ventas@medicoequip.com",
+      email: "ventas@inmedperusac.com",
     },
     {
       name: "Soporte Técnico",
       description: "Asistencia técnica y mantenimiento",
       phone: "+51 942300445",
-      email: "ventas@medicoequip.com",
+      email: "ventas@inmedperusac.com",
     },
     {
       name: "Administración",
       description: "Facturación y administración",
       phone: "+51 942300445",
-      email: "ventas@medicoequip.com",
+      email: "ventas@inmedperusac.com",
     },
   ];
 
@@ -460,7 +460,6 @@ const Contact = () => {
                   className="w-full bg-primary hover:bg-primary/90"
                 >
                   <Phone className="h-4 w-4 mr-2" />
-                  Llamar Ahora: 942300445
                 </Button>
               </CardContent>
             </Card>
