@@ -155,8 +155,7 @@ const Products = () => {
           return (a.category?.description ?? "").localeCompare(
             b.category?.description ?? ""
           );
-        case "price":
-          return (a.price ?? 0) - (b.price ?? 0);
+
         default:
           return 0;
       }
@@ -237,7 +236,6 @@ const Products = () => {
                   <SelectContent>
                     <SelectItem value="name">Nombre A-Z</SelectItem>
                     <SelectItem value="category">Categoría</SelectItem>
-                    <SelectItem value="price">Precio</SelectItem>
                   </SelectContent>
                 </Select>
                 <div className="flex border border-accent/30 rounded-md">

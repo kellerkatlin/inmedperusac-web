@@ -62,11 +62,11 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
   return (
     <Card
       className={cn(
-        "group overflow-hidden border-accent/20 hover-scale card-shadow hover:card-shadow-hover transition-smooth",
+        "group overflow-hidden border-accent/20 hover-scale card-shadow hover:card-shadow-hover transition-smooth flex flex-col h-full",
         className
       )}
     >
-      {/* Imagen principal + hover a segunda imagen si existe */}
+      {/* Imagen principal */}
       <div className="relative overflow-hidden">
         {/* imagen 1 */}
         <img
@@ -77,7 +77,6 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
             img2 ? "group-hover:opacity-0" : "group-hover:scale-105"
           )}
         />
-        {/* imagen 2 (solo si existe) */}
         {img2 && (
           <img
             src={img2}
@@ -109,30 +108,19 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
         </div>
       </div>
 
-      <CardContent className="p-4">
-        {/* Título (usamos description como “nombre”) */}
+      {/* Contenido */}
+      <CardContent className="p-4 flex flex-col justify-between flex-1">
         <h3 className="font-semibold text-foreground mb-1 line-clamp-2 group-hover:text-primary transition-smooth">
           {product.tittle}
         </h3>
 
-        {/* Precio si existe */}
-        {Number.isFinite(product.price) && (
-          <p className="text-sm text-foreground font-medium mb-2">
-            {formatMoney(product.price)}
-          </p>
-        )}
-
-        {/* Atributos resumidos */}
         {readableAttrs.length > 0 && (
-          <p className="text-xs text-accent mb-3">
-            {readableAttrs.join(" • ")}
-          </p>
+          <p className="text-xs text-accent">{readableAttrs.join(" • ")}</p>
         )}
-
-        {/* Estado opcional */}
       </CardContent>
 
-      <CardFooter className="p-4 pt-0 flex gap-2">
+      {/* Footer siempre abajo */}
+      <CardFooter className="p-4 pt-0 flex gap-2 mt-auto">
         <Button
           variant="outline"
           className="flex-1 border-primary text-primary hover:bg-primary hover:text-white"

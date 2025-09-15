@@ -315,11 +315,6 @@ export default function ProductDetailClient({ id }: { id: string }) {
               </h1>
 
               {/* Precio */}
-              {Number.isFinite(product.price) && (
-                <p className="text-foreground font-medium">
-                  {formatMoney(product.price)}
-                </p>
-              )}
 
               {/* Estado */}
             </div>
