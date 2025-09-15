@@ -155,7 +155,6 @@ const Products = () => {
           return (a.category?.description ?? "").localeCompare(
             b.category?.description ?? ""
           );
-
         default:
           return 0;
       }
