@@ -391,20 +391,15 @@ export default function ProductDetailClient({ id }: { id: string }) {
         {/* Tabs */}
         <div className="mt-16">
           <Tabs defaultValue="specifications" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 lg:grid-cols-3">
+            <TabsList className="grid w-full md:grid-cols-2 ">
               <TabsTrigger value="specifications">Especificaciones</TabsTrigger>
               <TabsTrigger value="description">
                 Descripción Detallada
               </TabsTrigger>
-              <TabsTrigger value="support">Soporte y Garantía</TabsTrigger>
             </TabsList>
             <TabsContent value="specifications" className="mt-6">
               <Card className="card-shadow border-accent/20">
                 <CardContent className="p-6">
-                  <h3 className="text-xl font-semibold text-foreground mb-4">
-                    Especificaciones Técnicas
-                  </h3>
-
                   {specs.length === 0 ? (
                     <p className="text-accent">
                       No hay especificaciones disponibles.
@@ -479,7 +474,7 @@ export default function ProductDetailClient({ id }: { id: string }) {
               </Card>
             </TabsContent>
 
-            <TabsContent value="support" className="mt-6">
+            {/* <TabsContent value="support" className="mt-6">
               <Card className="card-shadow border-accent/20">
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold text-foreground mb-4">
@@ -510,7 +505,7 @@ export default function ProductDetailClient({ id }: { id: string }) {
                   </div>
                 </CardContent>
               </Card>
-            </TabsContent>
+            </TabsContent> */}
           </Tabs>
         </div>
 
